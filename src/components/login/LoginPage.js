@@ -5,7 +5,7 @@ import DummyText from "./DummyText";
 import {connect} from "react-redux";
 
 
-const LoginPage = ({loginHandler, authStatus}) =>
+const LoginPage = ({authStatus}) =>
     <div className="container mt-5">
         {(authStatus === AUTH_LOGIN_ERROR) && <div className="alert alert-warning">Authorization failed</div>}
         <div className="row">
