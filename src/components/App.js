@@ -1,16 +1,26 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import WorkPage from "./work_page/WorkPage";
+import SecondPage from "./second_page/SecondPage";
+import ThirdPage from "./third_page/ThirdPage";
 import LoginPage from "./login/LoginPage";
-import WorkPage from "./work/WorkPage";
-import {AUTH_AUTHENTICATED} from "../Constants";
+import HomePage from "./home_page/HomePage";
+import NavBar from "./NavBar";
+import RequireAuth from "./RequireAuth";
 
 
-const App = ({authStatus}) =>
-    (authStatus === AUTH_AUTHENTICATED)
-        ? (<WorkPage/>)
-        : (<LoginPage/>);
+const App = () =>
+    <Router>
+        <div>
+            <NavBar/>
+            <Switch>
+                <Route exact path="/login" component={LoginPage}/>
+                <Route exact path="/" component={HomePage}/>
+                <Route exact path="/work" component={RequireAuth(WorkPage)}/>
+                <Route exact path="/second" component={RequireAuth(SecondPage)}/>
+                <Route exact path="/third" component={RequireAuth(ThirdPage)}/>
+            </Switch>
+        </div>
+    </Router>;
 
-
-const mapStateToProps = (state) => ({authStatus: state.AuthReducer.authStatus});
-
-export default connect(mapStateToProps)(App);
+export default App;
