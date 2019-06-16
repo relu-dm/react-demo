@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from "prop-types";
 import LoginForm from "./LoginForm";
 import {AUTH_LOGIN_ERROR} from "../../Constants";
 import DummyText from "./DummyText";
+import {connect} from "react-redux";
 
 
 const LoginPage = ({loginHandler, authStatus}) =>
@@ -10,7 +10,7 @@ const LoginPage = ({loginHandler, authStatus}) =>
         {(authStatus === AUTH_LOGIN_ERROR) && <div className="alert alert-warning">Authorization failed</div>}
         <div className="row">
             <div className="col-md-6">
-                <LoginForm loginHandler={loginHandler}/>
+                <LoginForm/>
             </div>
             <div className="col-md-6 d-none d-md-block">
                 <DummyText/>
@@ -19,9 +19,6 @@ const LoginPage = ({loginHandler, authStatus}) =>
     </div>;
 
 
-LoginPage.propTypes = {
-    loginHandler: PropTypes.func.isRequired,
-    authStatus: PropTypes.number.isRequired
-};
+const mapStateToProps = (state) => ({authStatus: state.AuthReducer.authStatus});
 
-export default LoginPage;
+export default connect(mapStateToProps)(LoginPage);
