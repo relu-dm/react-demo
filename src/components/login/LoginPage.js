@@ -5,12 +5,12 @@ import DummyText from "./DummyText";
 import {connect} from "react-redux";
 
 
-const LoginPage = ({authStatus}) =>
+const LoginPage = ({history, authStatus}) =>
     <div className="container mt-5">
         {(authStatus === AUTH_LOGIN_ERROR) && <div className="alert alert-warning">Authorization failed</div>}
         <div className="row">
             <div className="col-md-6">
-                <LoginForm/>
+                <LoginForm history={history}/>
             </div>
             <div className="col-md-6 d-none d-md-block">
                 <DummyText/>
