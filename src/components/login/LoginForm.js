@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
+import {loginAction} from "../../actions";
+import {connect} from "react-redux";
 
 
 const LoginForm = ({loginHandler}) => {
@@ -16,7 +17,7 @@ const LoginForm = ({loginHandler}) => {
         <form onSubmit={onFormSubmit}>
             <div className="card">
                 <div className="card-header">
-                    Login - [1 - React]
+                    Login [2 - Rect + Redux]
                 </div>
                 <div className="card-body">
                     <div className="row">
@@ -48,8 +49,8 @@ const LoginForm = ({loginHandler}) => {
 };
 
 
-LoginForm.propTypes = {
-    loginHandler: PropTypes.func.isRequired
-};
+const mapStateToProps = (state) => ({});
 
-export default LoginForm;
+const mapDispatchToProps = ({loginHandler: loginAction});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
