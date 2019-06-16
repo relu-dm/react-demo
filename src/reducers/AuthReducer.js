@@ -1,11 +1,14 @@
 import {AUTH_GUEST, AUTH_AUTHENTICATED, AUTH_LOGIN_ERROR} from '../Constants';
 import {LOGIN_ACTION, LOGOUT_ACTION} from '../actions/AuthActions';
 
+
 const initialLoggedInState = () => ({
     authStatus: (sessionStorage.getItem("loggedIn") === 'yes') ? AUTH_AUTHENTICATED : AUTH_GUEST
 });
 
+
 const checkCredentials = (user, pass) => (user === 'root');
+
 
 const login = (user, pass) => {
     const loginSuccessful = checkCredentials(user, pass);
@@ -13,10 +16,12 @@ const login = (user, pass) => {
     return loginSuccessful ? {authStatus: AUTH_AUTHENTICATED} : {authStatus: AUTH_LOGIN_ERROR};
 };
 
+
 const logout = () => {
     sessionStorage.setItem("loggedIn", 'no');
     return {authStatus: AUTH_GUEST};
 };
+
 
 const AuthReducer = (state = initialLoggedInState(), action) => {
     switch (action.type) {
@@ -29,5 +34,6 @@ const AuthReducer = (state = initialLoggedInState(), action) => {
             return state;
     }
 };
+
 
 export default AuthReducer;
