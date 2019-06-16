@@ -18,36 +18,44 @@ const renderField = ({input, label, id, placeholder, type, meta: {touched, error
     </div>;
 
 
-const LoginForm = ({handleSubmit, pristine, reset, submitting, loginHandler}) =>
-    <form onSubmit={handleSubmit(val => loginHandler(val.user, val.password))}>
-        <div className="card">
-            <div className="card-header">
-                Login [3 - React + Redux + Form]
-            </div>
-            <div className="card-body">
-                <div className="row">
-                    <div className="col-12">
-                        <Field name="user" component={renderField} type="text"
-                               label="User name"
-                               validate={[required, minLength4]}
-                               id="user" placeholder="Enter user name"/>
-                    </div>
-                    <div className="col-12">
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <Field name="password" component={renderField} type="password"
+const LoginForm = ({history, handleSubmit, pristine, reset, submitting, loginHandler}) => {
+
+    const login = (user, password) => {
+        loginHandler(user, password);
+        history.push("/work");
+    };
+
+    return (
+        <form onSubmit={handleSubmit(val => login(val.user, val.password))}>
+            <div className="card">
+                <div className="card-header">
+                    Login [4 - React + Redux + Form + Route]
+                </div>
+                <div className="card-body">
+                    <div className="row">
+                        <div className="col-12">
+                            <Field name="user" component={renderField} type="text"
+                                   label="User name"
                                    validate={[required, minLength4]}
-                                   warn={[passMinLength8]}
-                                   id="pass" placeholder="Password"/>
+                                   id="user" placeholder="Enter user name"/>
                         </div>
-                    </div>
-                    <div className="col-12">
-                        <button type="submit" className="btn btn-primary">Login</button>
+                        <div className="col-12">
+                            <div className="form-group">
+                                <label htmlFor="password">Password</label>
+                                <Field name="password" component={renderField} type="password"
+                                       validate={[required, minLength4]}
+                                       warn={[passMinLength8]}
+                                       id="pass" placeholder="Password"/>
+                            </div>
+                        </div>
+                        <div className="col-12">
+                            <button type="submit" className="btn btn-primary">Login</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>;
+        </form>);
+};
 
 
 const mapStateToProps = (state) => ({});
